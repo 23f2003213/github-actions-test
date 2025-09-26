@@ -1,0 +1,25 @@
+name: Cache Dependencies Example
+
+on:
+  workflow_dispatch: # allows manual triggering
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout the repo
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Step 2: Cache dependencies
+      - name: Cache dependencies
+        id: cache-step
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: cache-f85aaf1
+
+      # Step 3: Prime the cache (print cache hit/miss)
+      - name: prime-cache-f85aaf1
+        run: echo "Cache hit: ${{ steps.cache-step.outputs.cache-hit }}"
